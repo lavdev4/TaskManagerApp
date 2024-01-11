@@ -10,6 +10,7 @@ import com.example.taskmanagerapp.di.modules.ExternalSourceModule
 import com.example.taskmanagerapp.di.modules.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
+import java.time.ZoneId
 
 @ApplicationScope
 @Component(modules = [
@@ -27,7 +28,12 @@ interface ApplicationComponent {
         fun context(context: Context) : ApplicationComponentBuilder
 
         @BindsInstance
-        fun applicationDataStore(@ApplicationDataStore dataStoreName: String)
+        fun applicationDataStore(
+            @ApplicationDataStore dataStoreName: String
+        ): ApplicationComponentBuilder
+
+        @BindsInstance
+        fun timeZone(id: ZoneId): ApplicationComponentBuilder
 
         fun build(): ApplicationComponent
     }
