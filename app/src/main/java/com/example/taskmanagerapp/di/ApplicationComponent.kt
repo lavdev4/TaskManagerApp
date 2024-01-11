@@ -21,6 +21,8 @@ import java.time.ZoneId
 ])
 interface ApplicationComponent {
 
+    fun taskActivitySubcomponent(): TaskActivitySubcomponent.TaskActivitySubcomponentBuilder
+
     @Component.Builder
     interface ApplicationComponentBuilder {
 
