@@ -7,16 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.example.taskmanagerapp.databinding.FragmentAddTaskBinding
 import com.example.taskmanagerapp.presentation.TaskActivity
 import com.example.taskmanagerapp.presentation.viewmodels.AddTaskScreenVM
-import com.example.taskmanagerapp.presentation.viewmodels.AppViewModelFactory
+import com.example.taskmanagerapp.presentation.viewmodels.factories.ViewModelFactory
 import javax.inject.Inject
 
 class AddTaskScreen : Fragment() {
-    @Inject lateinit var viewModelFactory: AppViewModelFactory
+    @Inject lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by viewModels<AddTaskScreenVM> { viewModelFactory }
     private var _binding: FragmentAddTaskBinding? = null
     private val binding: FragmentAddTaskBinding

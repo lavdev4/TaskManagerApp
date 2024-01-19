@@ -2,7 +2,7 @@ package com.example.taskmanagerapp.data.mappers
 
 import com.example.taskmanagerapp.data.cache.database.TaskDbModel
 import com.example.taskmanagerapp.di.annotations.ApplicationScope
-import com.example.taskmanagerapp.domain.TaskEntity
+import com.example.taskmanagerapp.domain.entities.TaskEntity
 import javax.inject.Inject
 
 @ApplicationScope

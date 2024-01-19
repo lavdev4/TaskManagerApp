@@ -8,16 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.example.taskmanagerapp.databinding.FragmentAddTaskBinding
 import com.example.taskmanagerapp.databinding.FragmentTaskDetailBinding
 import com.example.taskmanagerapp.presentation.TaskActivity
-import com.example.taskmanagerapp.presentation.viewmodels.AddTaskScreenVM
-import com.example.taskmanagerapp.presentation.viewmodels.AppViewModelFactory
+import com.example.taskmanagerapp.presentation.viewmodels.factories.ViewModelFactory
 import com.example.taskmanagerapp.presentation.viewmodels.TaskDetailVM
 import javax.inject.Inject
 
 class TaskDetailScreen : Fragment() {
-    @Inject lateinit var viewModelFactory: AppViewModelFactory
+    @Inject lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by viewModels<TaskDetailVM> { viewModelFactory }
     private val args: TaskDetailScreenArgs by navArgs()
     private var _binding: FragmentTaskDetailBinding? = null

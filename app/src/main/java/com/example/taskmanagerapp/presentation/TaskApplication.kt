@@ -3,7 +3,8 @@ package com.example.taskmanagerapp.presentation
 import android.app.Application
 import com.example.taskmanagerapp.di.ApplicationComponent
 import com.example.taskmanagerapp.di.DaggerApplicationComponent
-import java.time.ZoneId
+import java.time.Clock
+import java.util.Locale
 
 class TaskApplication : Application() {
     lateinit var applicationComponent: ApplicationComponent
@@ -12,7 +13,8 @@ class TaskApplication : Application() {
         applicationComponent = DaggerApplicationComponent.builder()
             .context(applicationContext)
             .applicationDataStore(APP_DATA_STORE_NAME)
-            .timeZone(ZoneId.systemDefault())
+            .systemClock(Clock.systemDefaultZone())
+            .locale(Locale.getDefault())
             .build()
         super.onCreate()
     }

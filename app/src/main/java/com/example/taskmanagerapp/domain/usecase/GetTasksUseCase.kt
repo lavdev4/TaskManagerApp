@@ -1,15 +1,15 @@
 package com.example.taskmanagerapp.domain.usecase
 
-import com.example.taskmanagerapp.domain.TaskEntity
+import com.example.taskmanagerapp.domain.entities.TaskEntity
 import com.example.taskmanagerapp.domain.repositories.TasksCacheRepository
 import kotlinx.coroutines.flow.Flow
-import java.time.LocalDateTime
+import java.time.LocalDate
 import javax.inject.Inject
 
 class GetTasksUseCase @Inject constructor(
     private val tasksCacheRepository: TasksCacheRepository
 ) {
-    operator fun invoke(dateTime: LocalDateTime): Flow<List<TaskEntity>> {
+    operator fun invoke(dateTime: LocalDate): Flow<List<TaskEntity>> {
         return tasksCacheRepository.get(dateTime)
     }
 

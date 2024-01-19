@@ -1,4 +1,4 @@
-package com.example.taskmanagerapp.domain
+package com.example.taskmanagerapp.domain.entities
 
 import java.time.LocalDateTime
 

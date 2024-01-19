@@ -10,7 +10,9 @@ import com.example.taskmanagerapp.di.modules.ExternalSourceModule
 import com.example.taskmanagerapp.di.modules.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
+import java.time.Clock
 import java.time.ZoneId
+import java.util.Locale
 
 @ApplicationScope
 @Component(modules = [
@@ -35,7 +37,10 @@ interface ApplicationComponent {
         ): ApplicationComponentBuilder
 
         @BindsInstance
-        fun timeZone(id: ZoneId): ApplicationComponentBuilder
+        fun systemClock(clock: Clock): ApplicationComponentBuilder
+
+        @BindsInstance
+        fun locale(locale:Locale): ApplicationComponentBuilder
 
         fun build(): ApplicationComponent
     }

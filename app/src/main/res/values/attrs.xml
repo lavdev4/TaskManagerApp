@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TextSeparatorView">
+        <attr name="divider_color" format="color"/>
+        <attr name="divider_width" format="dimension"/>
+        <attr name="text" format="string"/>
+        <attr name="text_color" format="color"/>
+        <attr name="text_size" format="dimension"/>
+        <attr name="text_horizontal_position" format="integer">
+            <flag name="left" value="0" />
+            <flag name="center" value="1" />
+            <flag name="right" value="2" />
+        </attr>
+        <attr name="text_vertical_position" format="integer">
+            <flag name="top" value="3" />
+            <flag name="center" value="4" />
+            <flag name="bottom" value="5" />
+        </attr>
+    </declare-styleable>
+</resources>

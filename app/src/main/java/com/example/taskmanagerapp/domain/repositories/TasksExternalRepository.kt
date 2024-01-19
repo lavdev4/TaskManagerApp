@@ -1,6 +1,6 @@
 package com.example.taskmanagerapp.domain.repositories
 
-import com.example.taskmanagerapp.domain.TaskEntity
+import com.example.taskmanagerapp.domain.entities.TaskEntity
 import kotlinx.coroutines.flow.Flow
 
 interface TasksExternalRepository {

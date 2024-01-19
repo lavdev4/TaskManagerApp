@@ -2,8 +2,7 @@ package com.example.taskmanagerapp.data.mappers
 
 import com.example.taskmanagerapp.data.external.TaskExternalModel
 import com.example.taskmanagerapp.di.annotations.ApplicationScope
-import com.example.taskmanagerapp.domain.TaskEntity
-import java.time.ZoneId
+import com.example.taskmanagerapp.domain.entities.TaskEntity
 import javax.inject.Inject
 
 @ApplicationScope

@@ -1,6 +1,7 @@
 package com.example.taskmanagerapp.domain.usecase
 
-import com.example.taskmanagerapp.domain.TaskEntity
+import android.util.Log
+import com.example.taskmanagerapp.domain.entities.TaskEntity
 import com.example.taskmanagerapp.domain.repositories.TasksExternalRepository
 import javax.inject.Inject
 

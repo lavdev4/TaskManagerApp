@@ -10,8 +10,7 @@ class UpdateTasksUseCase @Inject constructor(
 ) {
     suspend operator fun invoke() {
         tasksExternalRepository.get().collect {
-            tasksCacheRepository.clear()
-            tasksCacheRepository.add(it)
+            tasksCacheRepository.update(it)
         }
     }
 }

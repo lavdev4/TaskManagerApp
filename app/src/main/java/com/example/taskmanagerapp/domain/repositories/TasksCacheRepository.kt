@@ -1,12 +1,12 @@
 package com.example.taskmanagerapp.domain.repositories
 
-import com.example.taskmanagerapp.domain.TaskEntity
+import com.example.taskmanagerapp.domain.entities.TaskEntity
 import kotlinx.coroutines.flow.Flow
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 interface TasksCacheRepository {
-    suspend fun add(tasks: List<TaskEntity>)
-    fun get(dateTime: LocalDateTime): Flow<List<TaskEntity>>
+    suspend fun update(tasks: List<TaskEntity>)
+    fun get(dateTime: LocalDate): Flow<List<TaskEntity>>
     suspend fun getSingle(taskId: Int): TaskEntity
     suspend fun clear()
 }

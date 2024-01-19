@@ -27,12 +27,26 @@ class ExternalTasksSource(
 
     suspend fun add(data: List<TaskExternalModel>) {
         val cachedData = get().first().toMutableList()
-        cachedData.addAll(data)
-        refresh(cachedData)
+        refresh(cachedData.addAllWithUniqueId(data))
     }
 
     suspend fun clear() {
         dataStore.edit { it.remove(tasksKey) }
+    }
+
+    private fun List<TaskExternalModel>.addAllWithUniqueId(
+        newList: List<TaskExternalModel>
+    ): List<TaskExternalModel> {
+        val mutableOldList = this.toMutableList()
+        newList.forEach { newElement ->
+            var isFound = false
+            while (isFound) {
+                val coincidence = mutableOldList.find { it.id == newElement.id }
+                coincidence?.let { mutableOldList.remove(coincidence) } ?: run { isFound = true }
+            }
+        }
+        mutableOldList.addAll(newList)
+        return mutableOldList
     }
 
     private fun serializeTasks(tasks: List<TaskExternalModel>): String {
