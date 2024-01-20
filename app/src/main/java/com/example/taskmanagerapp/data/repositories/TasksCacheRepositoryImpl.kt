@@ -28,7 +28,7 @@ class TasksCacheRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun get(dateTime: LocalDate): Flow<List<TaskEntity>> {
+    override fun getFlowByDate(dateTime: LocalDate): Flow<List<TaskEntity>> {
         val interval = dateTimeMapper.dateToEpochSecondInterval(dateTime)
         return tasksDao.getAllByDate(interval.dayStart, interval.dayEnd)
             .map { taskList -> taskList.map(taskCacheMapper::taskDbModelToEntity) }

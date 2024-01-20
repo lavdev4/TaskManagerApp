@@ -8,5 +8,5 @@ import javax.inject.Inject
 class AddTasksUseCase @Inject constructor(
     private val tasksRepository: TasksExternalRepository
 ) {
-    suspend operator fun invoke(task: TaskEntity) { tasksRepository.add(listOf(task)) }
+    suspend fun addTask(task: TaskEntity) { tasksRepository.add(task) }
 }

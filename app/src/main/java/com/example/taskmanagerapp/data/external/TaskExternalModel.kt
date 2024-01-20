@@ -10,4 +10,5 @@ data class TaskExternalModel(
     val dateFinish: Long,
     val name: String,
     val description: String,
+    val actual: Boolean
 )

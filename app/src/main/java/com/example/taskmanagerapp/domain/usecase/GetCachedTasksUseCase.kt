@@ -6,14 +6,15 @@ import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 import javax.inject.Inject
 
-class GetTasksUseCase @Inject constructor(
+class GetCachedTasksUseCase @Inject constructor(
     private val tasksCacheRepository: TasksCacheRepository
 ) {
-    operator fun invoke(dateTime: LocalDate): Flow<List<TaskEntity>> {
-        return tasksCacheRepository.get(dateTime)
+
+    fun getTasksFlow(dateTime: LocalDate): Flow<List<TaskEntity>> {
+        return tasksCacheRepository.getFlowByDate(dateTime)
     }
 
-    suspend fun getTaskData(taskId: Int): TaskEntity {
+    suspend fun getTask(taskId: Int): TaskEntity {
         return tasksCacheRepository.getSingle(taskId)
     }
 }

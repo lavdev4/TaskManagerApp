@@ -1,5 +1,6 @@
 package com.example.taskmanagerapp.data.external
 
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -16,18 +17,27 @@ class ExternalTasksSource(
 ) {
     private val tasksKey = stringPreferencesKey("tasks")
 
-    fun get(): Flow<List<TaskExternalModel>> {
+    fun getFlow(): Flow<List<TaskExternalModel>> {
         return dataStore.data
             .map { deserializeTasks(it[tasksKey] ?: EMPTY_JSON_ARRAY) }
     }
 
-    suspend fun refresh(data: List<TaskExternalModel>) {
-        dataStore.edit { it[tasksKey] = serializeTasks(data) }
+    suspend fun getList(): List<TaskExternalModel> {
+        return getFlow().first()
     }
 
+    /** Id uniqueness. */
     suspend fun add(data: List<TaskExternalModel>) {
-        val cachedData = get().first().toMutableList()
-        refresh(cachedData.addAllWithUniqueId(data))
+        Log.d("Tasks", "incoming: ${data.size}")
+        val cachedData = getFlow().first().toMutableList()
+        Log.d("Tasks", "cached: ${cachedData.size}")
+        val new = cachedData.addAllWithUniqueId(data)
+        Log.d("Tasks", "new: ${new.size}")
+        refresh(new)
+    }
+
+    suspend fun refresh(data: List<TaskExternalModel>) {
+        dataStore.edit { it[tasksKey] = serializeTasks(data) }
     }
 
     suspend fun clear() {
@@ -40,9 +50,9 @@ class ExternalTasksSource(
         val mutableOldList = this.toMutableList()
         newList.forEach { newElement ->
             var isFound = false
-            while (isFound) {
-                val coincidence = mutableOldList.find { it.id == newElement.id }
-                coincidence?.let { mutableOldList.remove(coincidence) } ?: run { isFound = true }
+            while (!isFound) {
+                val isRemoved = mutableOldList.removeIf { it.id == newElement.id }
+                isFound = !isRemoved
             }
         }
         mutableOldList.addAll(newList)

@@ -7,5 +7,6 @@ data class TaskEntity(
     val dateStart: LocalDateTime,
     val dateFinish: LocalDateTime,
     val name: String,
-    val description: String
+    val description: String,
+    val actual: Boolean
 )

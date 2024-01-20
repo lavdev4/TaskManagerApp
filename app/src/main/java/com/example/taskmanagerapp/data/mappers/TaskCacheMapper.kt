@@ -16,7 +16,8 @@ class TaskCacheMapper @Inject constructor(
             dateStart = dateTimeMapper.dateTimeToEpochSecond(entity.dateStart),
             dateFinish = dateTimeMapper.dateTimeToEpochSecond(entity.dateFinish),
             name = entity.name,
-            description = entity.description
+            description = entity.description,
+            actual = entity.actual
         )
     }
 
@@ -26,7 +27,8 @@ class TaskCacheMapper @Inject constructor(
             dateStart = dateTimeMapper.epochSecondToDateTime(dbModel.dateStart),
             dateFinish = dateTimeMapper.epochSecondToDateTime(dbModel.dateFinish),
             name = dbModel.name,
-            description = dbModel.description
+            description = dbModel.description,
+            actual = dbModel.actual
         )
     }
 }
