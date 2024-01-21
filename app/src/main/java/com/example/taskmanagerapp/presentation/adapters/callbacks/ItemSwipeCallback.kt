@@ -9,13 +9,17 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.abs
 
 class ItemSwipeCallback(
-    private val checkIcon: Drawable,
-    private val deleteIcon: Drawable,
-    checkBackgroundColor: Int,
-    deleteBackgroundColor: Int,
+    private val checkIcon: Drawable?,
+    private val deleteIcon: Drawable?,
+    checkBackgroundColor: Int?,
+    deleteBackgroundColor: Int?,
 ) : ItemTouchHelper.Callback() {
-    private val deleteBackgroundPaint = Paint().apply { color = deleteBackgroundColor }
-    private val checkBackgroundPaint = Paint().apply { color = checkBackgroundColor }
+    private val deleteBackgroundPaint = Paint().apply {
+        if (deleteBackgroundColor != null) { color = deleteBackgroundColor }
+    }
+    private val checkBackgroundPaint = Paint().apply {
+        if (checkBackgroundColor != null) { color = checkBackgroundColor }
+    }
 
     override fun getMovementFlags(
         recyclerView: RecyclerView,
@@ -85,29 +89,33 @@ class ItemSwipeCallback(
     }
 
     private fun drawLeftIcon(canvas: Canvas, field: Rect, maxWidth: Int) {
-        val intrinsicWidth = deleteIcon.intrinsicWidth
-        val intrinsicHeight = deleteIcon.intrinsicHeight
-        val horizontalMargin = maxWidth / 4
-        val verticalMargin = (field.height() - intrinsicHeight) / 2
-        val left = field.right - intrinsicWidth - horizontalMargin
-        val right = field.right - horizontalMargin
-        val top = field.top + verticalMargin
-        val bottom = field.bottom - verticalMargin
-        deleteIcon.setBounds(left, top, right, bottom)
-        deleteIcon.draw(canvas)
+        deleteIcon?.let { deleteIcon ->
+            val intrinsicWidth = deleteIcon.intrinsicWidth
+            val intrinsicHeight = deleteIcon.intrinsicHeight
+            val horizontalMargin = maxWidth / 4
+            val verticalMargin = (field.height() - intrinsicHeight) / 2
+            val left = field.right - intrinsicWidth - horizontalMargin
+            val right = field.right - horizontalMargin
+            val top = field.top + verticalMargin
+            val bottom = field.bottom - verticalMargin
+            deleteIcon.setBounds(left, top, right, bottom)
+            deleteIcon.draw(canvas)
+        }
     }
 
     private fun drawRightIcon(canvas: Canvas, field: Rect, maxWidth: Int) {
-        val intrinsicWidth = checkIcon.intrinsicWidth
-        val intrinsicHeight = checkIcon.intrinsicHeight
-        val horizontalMargin = maxWidth / 4
-        val verticalMargin = (field.height() - intrinsicHeight) / 2
-        val left = field.left + horizontalMargin
-        val right = field.left + intrinsicWidth + horizontalMargin
-        val top = field.top + verticalMargin
-        val bottom = field.bottom - verticalMargin
-        checkIcon.setBounds(left, top, right, bottom)
-        checkIcon.draw(canvas)
+        checkIcon?.let { checkIcon ->
+            val intrinsicWidth = checkIcon.intrinsicWidth
+            val intrinsicHeight = checkIcon.intrinsicHeight
+            val horizontalMargin = maxWidth / 4
+            val verticalMargin = (field.height() - intrinsicHeight) / 2
+            val left = field.left + horizontalMargin
+            val right = field.left + intrinsicWidth + horizontalMargin
+            val top = field.top + verticalMargin
+            val bottom = field.bottom - verticalMargin
+            checkIcon.setBounds(left, top, right, bottom)
+            checkIcon.draw(canvas)
+        }
     }
 
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {

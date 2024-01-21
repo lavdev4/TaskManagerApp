@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
 
-abstract class TimeHolder {
+abstract class TimeHolder(private val timeFormatter: DateTimeFormatter) {
     abstract val id: Int?
-    abstract val time: String
+    abstract val time: LocalTime
     abstract val viewType: Int
 
     abstract fun bindViewHolder(viewHolder: ViewHolder)
@@ -17,6 +17,10 @@ abstract class TimeHolder {
     abstract fun compareItems(item: TimeHolder): Boolean
 
     abstract fun compareContents(item: TimeHolder): Boolean
+
+    protected fun formatTime(time: LocalTime): String {
+        return time.format(timeFormatter)
+    }
 
     companion object {
         const val TIME_CATEGORY_VIEW = 1

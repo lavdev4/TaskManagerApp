@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">TaskManagerApp</string>
     <string name="add_task_button_text">Добавить задачу</string>
+    <string name="task_field_label">Задача</string>
+    <string name="time_field_label">Время</string>
+    <string name="description_field_label">Описание</string>
+    <string name="task_status_active">Активно</string>
+    <string name="task_status_uncative">Не активно</string>
+    <string name="time_start_end_pattern">%1$s - %2$s</string>
+    <string name="date_filed_label">Дата</string>
 </resources>

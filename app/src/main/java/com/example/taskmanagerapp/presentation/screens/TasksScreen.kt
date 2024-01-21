@@ -2,6 +2,7 @@ package com.example.taskmanagerapp.presentation.screens
 
 import android.content.Context
 import android.content.res.Configuration
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable.Orientation
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -83,7 +86,9 @@ class TasksScreen : Fragment() {
         val tasksAdapter = initializeTasksList()
         val currentDate = initializeCalendar(binding.calendar, tasksAdapter)
         observeTasksData(currentDate, tasksAdapter)
-        if(orientation == Configuration.ORIENTATION_PORTRAIT) { setAppBarOffsetListener() }
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            setAppBarOffsetListener()
+        }
         setFabClickListener()
     }
 
@@ -108,7 +113,7 @@ class TasksScreen : Fragment() {
 
     private fun setCalendarDateListener(
         calendarView: CalendarView,
-        adapterToDispatch: TimeHolderAdapter
+        adapterToDispatch: TimeHolderAdapter,
     ) {
         calendarView.setOnDateChangeListener { _, year, month, day ->
             val date = dateMapper.calendarResultDateToLocalDate(year, month, day)
@@ -130,6 +135,7 @@ class TasksScreen : Fragment() {
     private fun initializeTasksList(): TimeHolderAdapter {
         val dateTimeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
             .withLocale(locale)
+            .withZone(clock.zone)
         val orientationPortrait = orientation == Configuration.ORIENTATION_PORTRAIT
         val adapter = TimeHolderAdapter(
             dateTimeFormatter,
@@ -138,15 +144,11 @@ class TasksScreen : Fragment() {
             ::onTaskItemSwipeRight,
             ::onTaskItemSwipeLeft
         )
-        val deleteBackgroundColor = resources.getColor(R.color.delete_item_background)
-        val checkBackgroundColor = resources.getColor(R.color.check_item_background)
-        val deleteIcon = resources.getDrawable(R.drawable.icon_delete)
-        val checkIcon = resources.getDrawable(R.drawable.icon_check)
         val itemSwipeCallback = ItemSwipeCallback(
-            checkIcon,
-            deleteIcon,
-            checkBackgroundColor,
-            deleteBackgroundColor
+            getCheckIcon(),
+            getDeleteIcon(),
+            getCheckBackgroundColor(),
+            getDeleteBackgroundColor()
         )
         val touchHelper = ItemTouchHelper(itemSwipeCallback)
         val decorator = AdaptiveSpacingItemDecorator(0.3f, 6f)
@@ -161,7 +163,7 @@ class TasksScreen : Fragment() {
     }
 
     private fun onTasksItemClick(taskId: Int) {
-//        navigateToDetailScreen(taskId)
+        navigateToDetailScreen(taskId)
     }
 
     private fun onTaskItemSwipeRight(taskId: Int) {
@@ -187,6 +189,7 @@ class TasksScreen : Fragment() {
             Configuration.ORIENTATION_PORTRAIT -> {
                 binding.fab?.setOnClickListener { navigateToAddScreen() }
             }
+
             Configuration.ORIENTATION_LANDSCAPE -> {
                 binding.extendedFab?.setOnClickListener { navigateToAddScreen() }
             }
@@ -203,5 +206,27 @@ class TasksScreen : Fragment() {
 
     private fun removeAppBarOffsetListener() {
         binding.appBar?.removeOnOffsetChangedListener(appBarOffsetListener)
+    }
+
+    private fun getDeleteIcon(): Drawable? {
+        return ContextCompat.getDrawable(requireActivity(), R.drawable.icon_delete)
+    }
+
+    private fun getCheckIcon(): Drawable? {
+        return ContextCompat.getDrawable(requireActivity(), R.drawable.icon_check)
+    }
+
+    private fun getDeleteBackgroundColor(): Int {
+        return ContextCompat.getColor(
+            requireActivity(),
+            R.color.delete_item_background
+        )
+    }
+
+    private fun getCheckBackgroundColor(): Int {
+        return ContextCompat.getColor(
+            requireActivity(),
+            R.color.check_item_background
+        )
     }
 }

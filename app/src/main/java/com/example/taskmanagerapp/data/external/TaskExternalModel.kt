@@ -7,7 +7,7 @@ data class TaskExternalModel(
     @SerializedName("date_start")
     val dateStart: Long,
     @SerializedName("date_finish")
-    val dateFinish: Long,
+    val dateFinish: Long? = null,
     val name: String,
     val description: String,
     val actual: Boolean

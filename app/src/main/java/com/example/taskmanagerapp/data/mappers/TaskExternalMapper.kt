@@ -14,7 +14,7 @@ class TaskExternalMapper @Inject constructor(
         return TaskExternalModel(
             id = entity.id,
             dateStart = dateTimeMapper.dateTimeToEpochSecond(entity.dateStart),
-            dateFinish = dateTimeMapper.dateTimeToEpochSecond(entity.dateFinish),
+            dateFinish = entity.dateFinish?.let { dateTimeMapper.dateTimeToEpochSecond(it) },
             name = entity.name,
             description = entity.description,
             actual = entity.actual
@@ -25,7 +25,7 @@ class TaskExternalMapper @Inject constructor(
         return TaskEntity(
             id = externalModel.id,
             dateStart = dateTimeMapper.epochSecondToDateTime(externalModel.dateStart),
-            dateFinish = dateTimeMapper.epochSecondToDateTime(externalModel.dateFinish),
+            dateFinish = externalModel.dateFinish?.let { dateTimeMapper.epochSecondToDateTime(it) },
             name = externalModel.name,
             description = externalModel.description,
             actual = externalModel.actual

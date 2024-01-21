@@ -25,6 +25,7 @@ interface ExternalSourceModule {
         fun provideGson(): Gson {
             return GsonBuilder()
                 .setPrettyPrinting()
+                .serializeNulls()
                 .create()
         }
 

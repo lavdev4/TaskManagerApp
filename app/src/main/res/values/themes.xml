@@ -1,24 +1,24 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.TaskManagerApp" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.TaskManagerApp" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
     <style name="Theme.TaskManagerApp" parent="Base.Theme.TaskManagerApp" />
 
-<!--    calendar color  "theme"-->
-    <style name="BlueCalenderView">
-        <item name="colorAccent"></item>
-    </style>
+<!--&lt;!&ndash;    calendar color  "theme"&ndash;&gt;-->
+<!--    <style name="BlueCalenderView">-->
+<!--        <item name="colorAccent"></item>-->
+<!--    </style>-->
 
-<!--    days color  "weekDayTextAppearance"-->
-    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor"></item>
-    </style>
+<!--&lt;!&ndash;    days color  "weekDayTextAppearance"&ndash;&gt;-->
+<!--    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">-->
+<!--        <item name="android:textColor"></item>-->
+<!--    </style>-->
 
-<!--    weeks color  "dateTextAppearance"-->
-    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor"></item>
-    </style>
+<!--&lt;!&ndash;    weeks color  "dateTextAppearance"&ndash;&gt;-->
+<!--    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">-->
+<!--        <item name="android:textColor"></item>-->
+<!--    </style>-->
 </resources>

@@ -11,7 +11,7 @@ data class TaskDbModel(
     @ColumnInfo(name = "date_start")
     val dateStart: Long,
     @ColumnInfo(name = "date_finish")
-    val dateFinish: Long,
+    val dateFinish: Long? = null,
     val name: String,
     val description: String,
     val actual: Boolean

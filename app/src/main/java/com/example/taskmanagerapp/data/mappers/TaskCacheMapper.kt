@@ -14,7 +14,7 @@ class TaskCacheMapper @Inject constructor(
         return TaskDbModel(
             id = entity.id,
             dateStart = dateTimeMapper.dateTimeToEpochSecond(entity.dateStart),
-            dateFinish = dateTimeMapper.dateTimeToEpochSecond(entity.dateFinish),
+            dateFinish = entity.dateFinish?.let { dateTimeMapper.dateTimeToEpochSecond(it) },
             name = entity.name,
             description = entity.description,
             actual = entity.actual
@@ -25,7 +25,7 @@ class TaskCacheMapper @Inject constructor(
         return TaskEntity(
             id = dbModel.id,
             dateStart = dateTimeMapper.epochSecondToDateTime(dbModel.dateStart),
-            dateFinish = dateTimeMapper.epochSecondToDateTime(dbModel.dateFinish),
+            dateFinish = dbModel.dateFinish?.let { dateTimeMapper.epochSecondToDateTime(it) },
             name = dbModel.name,
             description = dbModel.description,
             actual = dbModel.actual

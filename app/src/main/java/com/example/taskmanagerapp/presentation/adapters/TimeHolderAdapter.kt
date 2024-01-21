@@ -2,7 +2,6 @@ package com.example.taskmanagerapp.presentation.adapters
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.taskmanagerapp.presentation.adapters.callbacks.ItemClickConsumer
 import com.example.taskmanagerapp.presentation.adapters.diffutills.TimeHolderDiffUtil
@@ -11,17 +10,16 @@ import com.example.taskmanagerapp.presentation.adapters.models.TimeHolder
 import com.example.taskmanagerapp.presentation.adapters.callbacks.ItemSwipeConsumer
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.util.Locale
 
 class TimeHolderAdapter(
-    categoryTimeFormat: DateTimeFormatter,
+    timeFormatter: DateTimeFormatter,
     orientationPortrait: Boolean,
     private val onItemClickCallback: (itemId: Int) -> Unit,
     private val onItemDeactivateCallback: (itemId: Int) -> Unit,
     private val onItemRemoveCallback: (itemId: Int) -> Unit
 ) : ListAdapter<TimeHolder, ViewHolder>(TimeHolderDiffUtil()), ItemClickConsumer, ItemSwipeConsumer {
 
-    private val timeCategoryList = createCategoriesData(categoryTimeFormat)
+    private val timeCategoryList = createCategoriesData(timeFormatter)
     private var cachedDataList: List<TimeHolder>? = null
     private val viewHolderFactory = TimeViewHolderFactory.Builder
         .clickCallback(this)
@@ -69,24 +67,25 @@ class TimeHolderAdapter(
         }
     }
 
-    private fun createCategoriesData(timeFormatter: DateTimeFormatter): List<TimeCategory> {
+    private fun createCategoriesData(formatter: DateTimeFormatter): List<TimeCategory> {
         val categories = mutableListOf<TimeCategory>()
         for (hour in 0..23) {
-            val time = LocalTime.of(hour, 0).format(timeFormatter)
-            categories.add(TimeCategory(time))
+            val time = LocalTime.of(hour, 0)
+            categories.add(TimeCategory(time, formatter))
         }
         return categories
     }
 
     private data class TimeCategory(
-        override val time: String,
+        override val time: LocalTime,
+        private val timeFormatter: DateTimeFormatter,
         override val id: Int? = null
-    ) : TimeHolder() {
+    ) : TimeHolder(timeFormatter) {
 
         override val viewType = TIME_CATEGORY_VIEW
 
         override fun bindViewHolder(viewHolder: ViewHolder) {
-            (viewHolder as TimeViewHolderFactory.TimeCategoryViewHolder).text = time
+            (viewHolder as TimeViewHolderFactory.TimeCategoryViewHolder).text = formatTime(time)
         }
 
         override fun compareItems(item: TimeHolder): Boolean {

@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 data class TaskEntity(
     val id: Int,
     val dateStart: LocalDateTime,
-    val dateFinish: LocalDateTime,
+    val dateFinish: LocalDateTime? = null,
     val name: String,
     val description: String,
     val actual: Boolean
