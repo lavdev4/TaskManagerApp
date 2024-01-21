@@ -2,6 +2,7 @@ package com.example.taskmanagerapp.presentation.adapters
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.taskmanagerapp.presentation.adapters.callbacks.ItemClickConsumer
 import com.example.taskmanagerapp.presentation.adapters.diffutills.TimeHolderDiffUtil
@@ -14,6 +15,7 @@ import java.util.Locale
 
 class TimeHolderAdapter(
     categoryTimeFormat: DateTimeFormatter,
+    orientationPortrait: Boolean,
     private val onItemClickCallback: (itemId: Int) -> Unit,
     private val onItemDeactivateCallback: (itemId: Int) -> Unit,
     private val onItemRemoveCallback: (itemId: Int) -> Unit
@@ -24,6 +26,7 @@ class TimeHolderAdapter(
     private val viewHolderFactory = TimeViewHolderFactory.Builder
         .clickCallback(this)
         .swipeCallback(this)
+        .orientationPortrait(orientationPortrait)
         .build()
 
     init { super.submitList(timeCategoryList) }

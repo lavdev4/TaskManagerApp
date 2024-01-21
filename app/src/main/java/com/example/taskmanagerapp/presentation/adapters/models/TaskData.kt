@@ -1,18 +1,14 @@
 package com.example.taskmanagerapp.presentation.adapters.models
 
 import android.util.Log
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.taskmanagerapp.presentation.adapters.TimeHolderAdapter
 import com.example.taskmanagerapp.presentation.adapters.factories.TimeViewHolderFactory
-import java.time.LocalTime
-import java.util.Locale
 
 data class TaskData(
     override val time: String,
     override val id: Int,
-    val name: String
+    val name: String,
+    val isActivated: Boolean = true
 ) : TimeHolder() {
 
     override val viewType = TASK_DATA_VIEW
@@ -29,9 +25,6 @@ data class TaskData(
     }
 
     override fun compareContents(item: TimeHolder): Boolean {
-        return with(item as TaskData) {
-            this@with.name == this@TaskData.name &&
-                    this@with.time == this@TaskData.time
-        }
+        return item == this
     }
 }

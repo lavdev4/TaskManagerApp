@@ -6,4 +6,19 @@
     </style>
 
     <style name="Theme.TaskManagerApp" parent="Base.Theme.TaskManagerApp" />
+
+<!--    calendar color  "theme"-->
+    <style name="BlueCalenderView">
+        <item name="colorAccent"></item>
+    </style>
+
+<!--    days color  "weekDayTextAppearance"-->
+    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor"></item>
+    </style>
+
+<!--    weeks color  "dateTextAppearance"-->
+    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor"></item>
+    </style>
 </resources>

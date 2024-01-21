@@ -1,6 +1,8 @@
 package com.example.taskmanagerapp.presentation.screens
 
 import android.content.Context
+import android.content.res.Configuration
+import android.graphics.drawable.GradientDrawable.Orientation
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,22 +16,30 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
+import com.example.taskmanagerapp.R
 import com.example.taskmanagerapp.databinding.FragmentTasksBinding
 import com.example.taskmanagerapp.presentation.TaskActivity
 import com.example.taskmanagerapp.presentation.adapters.TimeHolderAdapter
 import com.example.taskmanagerapp.presentation.adapters.decorators.AdaptiveSpacingItemDecorator
 import com.example.taskmanagerapp.presentation.adapters.models.TimeHolder
 import com.example.taskmanagerapp.presentation.adapters.callbacks.ItemSwipeCallback
+import com.example.taskmanagerapp.presentation.adapters.factories.TimeViewHolderFactory
 import com.example.taskmanagerapp.presentation.mappers.DateMapper
 import com.example.taskmanagerapp.presentation.mappers.TimeHolderMapper
 import com.example.taskmanagerapp.presentation.viewmodels.factories.ViewModelFactory
 import com.example.taskmanagerapp.presentation.viewmodels.TasksScreenVM
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.time.Clock
 import java.time.LocalDate
@@ -45,7 +55,8 @@ class TasksScreen : Fragment() {
     @Inject lateinit var clock: Clock
     @Inject lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by viewModels<TasksScreenVM> { viewModelFactory }
-    private lateinit var navController: NavController
+    private var navController: NavController? = null
+    private var orientation: Int? = null
     private var _binding: FragmentTasksBinding? = null
     private val binding: FragmentTasksBinding
         get() = _binding ?: throw RuntimeException("FragmentTasksBinding is null")
@@ -67,18 +78,19 @@ class TasksScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        orientation = resources.configuration.orientation
         navController = Navigation.findNavController(view)
         val tasksAdapter = initializeTasksList()
         val currentDate = initializeCalendar(binding.calendar, tasksAdapter)
         observeTasksData(currentDate, tasksAdapter)
-        setAppBarOffsetListener()
+        if(orientation == Configuration.ORIENTATION_PORTRAIT) { setAppBarOffsetListener() }
         setFabClickListener()
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
         removeAppBarOffsetListener()
+        _binding = null
+        super.onDestroyView()
     }
 
     private fun initializeCalendar(
@@ -118,13 +130,25 @@ class TasksScreen : Fragment() {
     private fun initializeTasksList(): TimeHolderAdapter {
         val dateTimeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
             .withLocale(locale)
+        val orientationPortrait = orientation == Configuration.ORIENTATION_PORTRAIT
         val adapter = TimeHolderAdapter(
             dateTimeFormatter,
+            orientationPortrait,
             ::onTasksItemClick,
             ::onTaskItemSwipeRight,
             ::onTaskItemSwipeLeft
         )
-        val touchHelper = ItemTouchHelper(ItemSwipeCallback())
+        val deleteBackgroundColor = resources.getColor(R.color.delete_item_background)
+        val checkBackgroundColor = resources.getColor(R.color.check_item_background)
+        val deleteIcon = resources.getDrawable(R.drawable.icon_delete)
+        val checkIcon = resources.getDrawable(R.drawable.icon_check)
+        val itemSwipeCallback = ItemSwipeCallback(
+            checkIcon,
+            deleteIcon,
+            checkBackgroundColor,
+            deleteBackgroundColor
+        )
+        val touchHelper = ItemTouchHelper(itemSwipeCallback)
         val decorator = AdaptiveSpacingItemDecorator(0.3f, 6f)
         with(binding.tasksList) {
             layoutManager = LinearLayoutManager(requireContext())
@@ -137,7 +161,7 @@ class TasksScreen : Fragment() {
     }
 
     private fun onTasksItemClick(taskId: Int) {
-        navigateToDetailScreen(taskId)
+//        navigateToDetailScreen(taskId)
     }
 
     private fun onTaskItemSwipeRight(taskId: Int) {
@@ -150,27 +174,34 @@ class TasksScreen : Fragment() {
 
     private fun navigateToDetailScreen(taskId: Int) {
         val direction = TasksScreenDirections.actionTasksScreenToTaskDetailScreen(taskId)
-        navController.navigate(direction)
+        navController?.navigate(direction)
     }
 
     private fun navigateToAddScreen() {
         val direction = TasksScreenDirections.actionTasksScreenToAddTaskScreen()
-        navController.navigate(direction)
+        navController?.navigate(direction)
     }
 
     private fun setFabClickListener() {
-        binding.fab.setOnClickListener { navigateToAddScreen() }
+        when (orientation) {
+            Configuration.ORIENTATION_PORTRAIT -> {
+                binding.fab?.setOnClickListener { navigateToAddScreen() }
+            }
+            Configuration.ORIENTATION_LANDSCAPE -> {
+                binding.extendedFab?.setOnClickListener { navigateToAddScreen() }
+            }
+        }
     }
 
     private fun setAppBarOffsetListener() {
-        val fab = binding.fab
+        val fab = binding.fab as FloatingActionButton
         appBarOffsetListener = OnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (verticalOffset + appBarLayout.height == 0) fab.hide() else fab.show()
         }
-        binding.appBar.addOnOffsetChangedListener(appBarOffsetListener)
+        binding.appBar?.addOnOffsetChangedListener(appBarOffsetListener)
     }
 
     private fun removeAppBarOffsetListener() {
-        binding.appBar.removeOnOffsetChangedListener(appBarOffsetListener)
+        binding.appBar?.removeOnOffsetChangedListener(appBarOffsetListener)
     }
 }

@@ -20,12 +20,32 @@ import javax.inject.Inject
 class TasksScreenVM @Inject constructor(
     private val getCachedTasksUseCase: GetCachedTasksUseCase,
     private val updateTasksUseCase: UpdateTasksUseCase,
-    private val removeDataUseCase: RemoveTasksUseCase
+    private val removeDataUseCase: RemoveTasksUseCase,
+
+    externalTasksSource: ExternalTasksSource,
+    addTasksUseCase: AddTasksUseCase
 ) : ViewModel() {
     var currentDate: LocalDate? = null
     private lateinit var tasksFlow: StateFlow<List<TaskEntity>?>
 
-    init { viewModelScope.launch { updateTasksUseCase() } }
+    init {
+        viewModelScope.launch { updateTasksUseCase() }
+
+        val date = LocalDateTime.of(2024, 1, 21, 6,35)
+        val date1 = LocalDateTime.of(2024, 1, 21, 6,35)
+        viewModelScope.launch {
+            addTasksUseCase.addTask(TaskEntity(123231, date, date, "Task1", "Desc", true),)
+            addTasksUseCase.addTask(TaskEntity(231232, date1, date1, "Task2", "Desc2", true))
+            addTasksUseCase.addTask(TaskEntity(231233, date1, date1, "Task2", "Desc2", true))
+            addTasksUseCase.addTask(TaskEntity(231231, date1, date1, "Task2", "Desc2", true))
+            addTasksUseCase.addTask(TaskEntity(231236, date1, date1, "Task2", "Desc2", true))
+            addTasksUseCase.addTask(TaskEntity(231235, date1, date1, "Task2", "Desc2", true))
+            addTasksUseCase.addTask(TaskEntity(231238, date1, date1, "Task2", "Desc2", true))
+            addTasksUseCase.addTask(TaskEntity(231237, date1, date1, "Task2", "Desc2", true))
+            addTasksUseCase.addTask(TaskEntity(231236, date1, date1, "Task2", "Desc2", true))
+            addTasksUseCase.addTask(TaskEntity(231239, date1, date1, "Task2", "Desc2", true))
+        }
+    }
 
     fun deactivateTask(taskId: Int) {
         viewModelScope.launch { updateTasksUseCase.deactivateTask(taskId) }

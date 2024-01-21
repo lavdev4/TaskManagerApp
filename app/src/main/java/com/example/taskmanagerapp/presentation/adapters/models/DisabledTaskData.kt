@@ -25,9 +25,6 @@ data class DisabledTaskData(
     }
 
     override fun compareContents(item: TimeHolder): Boolean {
-        return with(item as DisabledTaskData) {
-            this@with.name == this@DisabledTaskData.name &&
-                    this@with.time == this@DisabledTaskData.time
-        }
+        return item == this
     }
 }
