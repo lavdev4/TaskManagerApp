@@ -24,6 +24,8 @@ import com.example.taskmanagerapp.presentation.TaskActivity
 import com.example.taskmanagerapp.presentation.mappers.DateMapper
 import com.example.taskmanagerapp.presentation.viewmodels.AddTaskScreenVM
 import com.example.taskmanagerapp.presentation.viewmodels.factories.ViewModelFactory
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -133,8 +135,12 @@ class AddTaskScreen : Fragment() {
     }
 
     private fun getDatePicker(): MaterialDatePicker<Pair<Long, Long>> {
+        val constraintsRange = CalendarConstraints.Builder()
+            .setValidator(DateValidatorPointForward.now())
+            .build()
         return MaterialDatePicker.Builder
             .dateRangePicker()
+            .setCalendarConstraints(constraintsRange)
             .setTitleText(getString(R.string.date_picker_label))
             .setPositiveButtonText(getString(R.string.date_picker_positive_button))
             .build()

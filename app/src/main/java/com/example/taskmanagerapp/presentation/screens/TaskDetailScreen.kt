@@ -2,7 +2,6 @@ package com.example.taskmanagerapp.presentation.screens
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,17 +10,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.taskmanagerapp.R
 import com.example.taskmanagerapp.databinding.FragmentTaskDetailBinding
 import com.example.taskmanagerapp.domain.entities.TaskEntity
 import com.example.taskmanagerapp.presentation.TaskActivity
-import com.example.taskmanagerapp.presentation.viewmodels.factories.ViewModelFactory
 import com.example.taskmanagerapp.presentation.viewmodels.TaskDetailVM
+import com.example.taskmanagerapp.presentation.viewmodels.factories.ViewModelFactory
 import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.time.Clock
 import java.time.format.DateTimeFormatter

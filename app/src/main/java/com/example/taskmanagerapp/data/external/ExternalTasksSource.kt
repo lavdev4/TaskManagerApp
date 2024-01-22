@@ -1,6 +1,5 @@
 package com.example.taskmanagerapp.data.external
 
-import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -28,20 +27,13 @@ class ExternalTasksSource(
 
     /** Id uniqueness. */
     suspend fun add(data: List<TaskExternalModel>) {
-        Log.d("Tasks", "incoming: ${data.size}")
         val cachedData = getFlow().first().toMutableList()
-        Log.d("Tasks", "cached: ${cachedData.size}")
         val new = cachedData.addAllWithUniqueId(data)
-        Log.d("Tasks", "new: ${new.size}")
         refresh(new)
     }
 
     suspend fun refresh(data: List<TaskExternalModel>) {
         dataStore.edit { it[tasksKey] = serializeTasks(data) }
-    }
-
-    suspend fun clear() {
-        dataStore.edit { it.remove(tasksKey) }
     }
 
     private fun List<TaskExternalModel>.addAllWithUniqueId(

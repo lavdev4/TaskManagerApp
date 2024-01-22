@@ -1,6 +1,5 @@
 package com.example.taskmanagerapp.domain.usecase
 
-import android.util.Log
 import com.example.taskmanagerapp.domain.entities.TaskEntity
 import com.example.taskmanagerapp.domain.repositories.TasksCacheRepository
 import com.example.taskmanagerapp.domain.repositories.TasksExternalRepository
@@ -11,10 +10,7 @@ class UpdateTasksUseCase @Inject constructor(
     private val tasksCacheRepository: TasksCacheRepository
 ) {
     suspend operator fun invoke() {
-        tasksExternalRepository.getFlow().collect {
-            Log.d("Tasks", "on update: ${it.size}")
-            tasksCacheRepository.update(it)
-        }
+        tasksExternalRepository.getFlow().collect { tasksCacheRepository.update(it) }
     }
 
     suspend fun deactivateTask(taskId: String) {
