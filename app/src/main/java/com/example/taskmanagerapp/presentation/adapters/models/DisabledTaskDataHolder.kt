@@ -9,6 +9,7 @@ data class DisabledTaskDataHolder(
     override val time: LocalTime,
     override val id: String,
     val name: String,
+    val description: String,
     private val timeFormatter: DateTimeFormatter
 ) : TimeHolder(timeFormatter) {
     override val viewType: Int = DISABLED_TASK_DATA_VIEW
@@ -18,6 +19,7 @@ data class DisabledTaskDataHolder(
         val binding = (viewHolder as TimeViewHolderFactory.DisabledTDViewHolder).binding
         binding.time.text = formatTime(time)
         binding.name.text = name
+        binding.description.text = description
     }
 
     override fun compareItems(item: TimeHolder): Boolean {

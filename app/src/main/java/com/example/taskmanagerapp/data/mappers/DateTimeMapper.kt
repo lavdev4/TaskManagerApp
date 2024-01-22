@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @ApplicationScope
 class DateTimeMapper @Inject constructor(
-    private val clock: Clock
+    clock: Clock
 ) {
     private val timeZoneId = clock.zone
 

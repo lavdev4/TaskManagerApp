@@ -122,10 +122,6 @@ class ItemSwipeCallback(
         return 1f
     }
 
-    override fun getSwipeVelocityThreshold(defaultValue: Float): Float {
-        return super.getSwipeVelocityThreshold(defaultValue * ITEM_SWIPE_OFFSET_PERCENT)
-    }
-
     override fun getAnimationDuration(
         recyclerView: RecyclerView,
         animationType: Int,

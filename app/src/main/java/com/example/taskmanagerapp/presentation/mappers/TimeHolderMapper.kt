@@ -21,14 +21,16 @@ class TimeHolderMapper @Inject constructor(locale: Locale, clock: Clock) {
                 time = entity.dateStart.toLocalTime(),
                 id = entity.id,
                 name = entity.name,
-                timeFormatter = dateTimeFormatter
+                timeFormatter = dateTimeFormatter,
+                description = entity.description
             )
         } else {
             DisabledTaskDataHolder(
                 time = entity.dateStart.toLocalTime(),
                 id = entity.id,
                 name = entity.name,
-                timeFormatter = dateTimeFormatter
+                timeFormatter = dateTimeFormatter,
+                description = entity.description
             )
         }
     }

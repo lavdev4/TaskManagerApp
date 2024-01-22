@@ -9,6 +9,7 @@ data class TaskDataHolder(
     override val time: LocalTime,
     override val id: String,
     val name: String,
+    val description: String,
     val isActivated: Boolean = true,
     private val timeFormatter: DateTimeFormatter
 ) : TimeHolder(timeFormatter) {
@@ -19,6 +20,7 @@ data class TaskDataHolder(
         val binding = (viewHolder as TimeViewHolderFactory.TaskDataViewHolder).binding
         binding.time.text = formatTime(time)
         binding.name.text = name
+        binding.description.text = description
     }
 
     override fun compareItems(item: TimeHolder): Boolean {

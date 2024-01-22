@@ -4,19 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:orientation="vertical"
-            android:minWidth="200dp"
+            android:minWidth="220dp"
             app:layout_constrainedWidth="true"
             android:background="@drawable/background_rounded_outlined"
             app:layout_constraintBottom_toTopOf="@id/date_start"
@@ -36,21 +37,21 @@
                 android:maxLines="1"
                 android:scrollHorizontally="false"
                 android:text="@string/task_field_label"
-                android:textSize="14sp"/>
+                android:textSize="11sp"/>
 
             <TextView
                 android:id="@+id/name_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:ellipsize="end"
                 android:lines="1"
                 android:maxLines="1"
                 android:scrollHorizontally="false"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 tools:text="Task" />
         </LinearLayout>
 
@@ -58,6 +59,7 @@
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:ellipsize="end"
             android:lines="1"
             android:maxLines="1"
@@ -93,21 +95,21 @@
                 android:maxLines="1"
                 android:scrollHorizontally="false"
                 android:text="@string/date_start_label"
-                android:textSize="14sp"/>
+                android:textSize="11sp"/>
 
             <TextView
                 android:id="@+id/date_start_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:ellipsize="end"
                 android:lines="1"
                 android:maxLines="1"
                 android:scrollHorizontally="false"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 tools:text="02.06.2008"/>
         </LinearLayout>
 
@@ -136,21 +138,21 @@
                 android:maxLines="1"
                 android:scrollHorizontally="false"
                 android:text="@string/date_end_label"
-                android:textSize="14sp"/>
+                android:textSize="11sp"/>
 
             <TextView
                 android:id="@+id/date_end_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:ellipsize="end"
                 android:lines="1"
                 android:maxLines="1"
                 android:scrollHorizontally="false"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 tools:text="02.06.2008" />
         </LinearLayout>
 
@@ -177,21 +179,21 @@
                 android:maxLines="1"
                 android:scrollHorizontally="false"
                 android:text="@string/time_field_label"
-                android:textSize="14sp"/>
+                android:textSize="11sp"/>
 
             <TextView
                 android:id="@+id/time_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:ellipsize="end"
                 android:lines="1"
                 android:maxLines="1"
                 android:scrollHorizontally="false"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 tools:text="00:00 - 00:00" />
         </LinearLayout>
 
@@ -201,6 +203,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/background_rounded_outlined"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/time"
@@ -218,14 +221,14 @@
                 android:maxLines="1"
                 android:scrollHorizontally="false"
                 android:text="@string/description_field_label"
-                android:textSize="14sp"/>
+                android:textSize="11sp"/>
 
             <TextView
                 android:id="@+id/description_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:scrollHorizontally="false"

@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#F3EFF5</color>
+    <color name="black">#1C2321</color>
+    <color name="cadet_gray">#7D98A1</color>
+    <color name="powder_blue">#A9B4C2</color>
+    <color name="paynes_gray">#5E6572</color>
+    <color name="baby_powder">#FFFFFB</color>
 
     <color name="text_box_outline">#80000000</color>
-    <color name="card_disabled_text">#8B8B8B</color>
-    <color name="card_disabled_background">#C5C5C5</color>
+
+    <color name="card_text">#F3EFF5</color>
+    <color name="card_disabled_text">#828282</color>
+    <color name="card_description_text">#E3E0E6</color>
+
     <color name="delete_item_background">#BC0000</color>
     <color name="check_item_background">#42A000</color>
-    <color name="description_text">#80000000</color>
+
 </resources>
