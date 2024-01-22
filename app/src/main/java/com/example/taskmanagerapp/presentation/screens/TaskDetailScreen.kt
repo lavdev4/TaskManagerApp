@@ -2,6 +2,7 @@ package com.example.taskmanagerapp.presentation.screens
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.taskmanagerapp.R
 import com.example.taskmanagerapp.databinding.FragmentTaskDetailBinding
@@ -18,6 +21,7 @@ import com.example.taskmanagerapp.presentation.TaskActivity
 import com.example.taskmanagerapp.presentation.viewmodels.factories.ViewModelFactory
 import com.example.taskmanagerapp.presentation.viewmodels.TaskDetailVM
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.time.Clock
 import java.time.format.DateTimeFormatter
@@ -65,7 +69,7 @@ class TaskDetailScreen : Fragment() {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.taskState
                     .filterNotNull()
-                    .collect { fillTextFields(it) }
+                    .collect(::fillTextFields)
             }
         }
     }
@@ -87,11 +91,23 @@ class TaskDetailScreen : Fragment() {
         val timeStart = task.dateStart.toLocalTime().format(timeFormatter)
         val timeEnd = task.dateFinish?.toLocalTime()?.format(timeFormatter)
         timeEnd?.let {
-            binding.timeText.text = getString(R.string.time_start_end_pattern, timeStart, timeEnd)
+            if (timeEnd != timeStart) {
+                binding.timeText.text =
+                    getString(R.string.time_start_end_pattern, timeStart, timeEnd)
+            } else {
+                binding.timeText.text = timeEnd
+            }
         } ?: run {
             binding.timeText.text = timeStart
         }
-        val date = task.dateStart.toLocalDate().format(dateFormatter)
-        binding.dateText.text = date
+        val dateStart = task.dateStart.toLocalDate().format(dateFormatter)
+        val dateEnd = task.dateFinish?.toLocalDate()?.format(dateFormatter)
+        binding.dateStartText.text = dateStart
+        dateEnd?.let { date ->
+            if (dateEnd != dateStart) {
+                binding.dateEnd.visibility = View.VISIBLE
+                binding.dateEndText.text = date
+            }
+        }
     }
 }

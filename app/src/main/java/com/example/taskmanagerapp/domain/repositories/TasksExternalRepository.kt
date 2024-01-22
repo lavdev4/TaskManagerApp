@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface TasksExternalRepository {
     suspend fun add(task: TaskEntity)
     suspend fun updateTask(task: TaskEntity)
-    suspend fun removeTask(taskId: Int): Boolean
+    suspend fun removeTask(taskId: String): Boolean
     fun getFlow(): Flow<List<TaskEntity>>
-    suspend fun getSingle(taskId: Int): TaskEntity?
+    suspend fun getSingle(taskId: String): TaskEntity?
 }

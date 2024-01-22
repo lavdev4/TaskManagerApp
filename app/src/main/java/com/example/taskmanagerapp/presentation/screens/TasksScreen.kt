@@ -162,19 +162,19 @@ class TasksScreen : Fragment() {
         return adapter
     }
 
-    private fun onTasksItemClick(taskId: Int) {
+    private fun onTasksItemClick(taskId: String) {
         navigateToDetailScreen(taskId)
     }
 
-    private fun onTaskItemSwipeRight(taskId: Int) {
+    private fun onTaskItemSwipeRight(taskId: String) {
         viewModel.deactivateTask(taskId)
     }
 
-    private fun onTaskItemSwipeLeft(taskId: Int) {
+    private fun onTaskItemSwipeLeft(taskId: String) {
         viewModel.removeTask(taskId)
     }
 
-    private fun navigateToDetailScreen(taskId: Int) {
+    private fun navigateToDetailScreen(taskId: String) {
         val direction = TasksScreenDirections.actionTasksScreenToTaskDetailScreen(taskId)
         navController?.navigate(direction)
     }

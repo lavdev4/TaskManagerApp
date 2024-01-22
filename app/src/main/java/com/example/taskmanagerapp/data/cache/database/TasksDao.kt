@@ -26,5 +26,5 @@ interface TasksDao {
     fun getAllByDate(epochSecondsStart: Long, epochSecondsEnd: Long): Flow<List<TaskDbModel>>
 
     @Query("SELECT * FROM tasks WHERE id = :id")
-    suspend fun getDistinct(id: Int): TaskDbModel
+    suspend fun getDistinct(id: String): TaskDbModel
 }

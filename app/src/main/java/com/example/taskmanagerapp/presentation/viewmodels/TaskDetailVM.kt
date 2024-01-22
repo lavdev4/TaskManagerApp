@@ -20,7 +20,7 @@ class TaskDetailVM @Inject constructor(
     val taskState: StateFlow<TaskEntity?>
         get() = _taskState
 
-    fun initialize(taskId: Int) {
+    fun initialize(taskId: String) {
          viewModelScope.launch {
              val data = getTasksUseCase.getTask(taskId)
              _taskState.value = data

@@ -1,5 +1,6 @@
 package com.example.taskmanagerapp.presentation.adapters
 
+import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -14,9 +15,9 @@ import java.time.format.DateTimeFormatter
 class TimeHolderAdapter(
     timeFormatter: DateTimeFormatter,
     orientationPortrait: Boolean,
-    private val onItemClickCallback: (itemId: Int) -> Unit,
-    private val onItemDeactivateCallback: (itemId: Int) -> Unit,
-    private val onItemRemoveCallback: (itemId: Int) -> Unit
+    private val onItemClickCallback: (itemId: String) -> Unit,
+    private val onItemDeactivateCallback: (itemId: String) -> Unit,
+    private val onItemRemoveCallback: (itemId: String) -> Unit
 ) : ListAdapter<TimeHolder, ViewHolder>(TimeHolderDiffUtil()), ItemClickConsumer, ItemSwipeConsumer {
 
     private val timeCategoryList = createCategoriesData(timeFormatter)
@@ -49,11 +50,11 @@ class TimeHolderAdapter(
         initList(list)?.let { super.submitList(it, commitCallback) }
     }
 
-    override fun onItemClick(position: Int) = invokeIfId(position, onItemClickCallback)
+    override fun onItemClick(position: Int) = invokeIfHasId(position, onItemClickCallback)
 
-    override fun onSwipeLeft(position: Int) = invokeIfId(position, onItemRemoveCallback)
+    override fun onSwipeLeft(position: Int) = invokeIfHasId(position, onItemRemoveCallback)
 
-    override fun onSwipeRight(position: Int) = invokeIfId(position, onItemDeactivateCallback)
+    override fun onSwipeRight(position: Int) = invokeIfHasId(position, onItemDeactivateCallback)
 
     private fun initList(dataList: List<TimeHolder>?): MutableList<TimeHolder>? {
         if (dataList == cachedDataList) return null
@@ -61,10 +62,10 @@ class TimeHolderAdapter(
     }
 
     private fun categorizeList(dataList: List<TimeHolder>): MutableList<TimeHolder> {
-        return dataList.toMutableList().apply {
-            addAll(timeCategoryList)
-            sortBy { it.time }
-        }
+        return dataList.toMutableList()
+            .apply { addAll(timeCategoryList) }
+            .sortedWith(compareBy<TimeHolder> { it.time }.thenBy { !it.sortPriority })
+            .toMutableList()
     }
 
     private fun createCategoriesData(formatter: DateTimeFormatter): List<TimeCategory> {
@@ -79,10 +80,10 @@ class TimeHolderAdapter(
     private data class TimeCategory(
         override val time: LocalTime,
         private val timeFormatter: DateTimeFormatter,
-        override val id: Int? = null
+        override val id: String? = null
     ) : TimeHolder(timeFormatter) {
-
         override val viewType = TIME_CATEGORY_VIEW
+        override val sortPriority = true
 
         override fun bindViewHolder(viewHolder: ViewHolder) {
             (viewHolder as TimeViewHolderFactory.TimeCategoryViewHolder).text = formatTime(time)
@@ -98,7 +99,7 @@ class TimeHolderAdapter(
         }
     }
 
-    private fun TimeHolderAdapter.invokeIfId(position: Int, callback: (position: Int) -> Unit) {
+    private fun TimeHolderAdapter.invokeIfHasId(position: Int, callback: (id: String) -> Unit) {
         getItem(position).id?.let(callback::invoke)
     }
 }

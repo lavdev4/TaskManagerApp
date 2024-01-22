@@ -19,7 +19,7 @@
             android:minWidth="200dp"
             app:layout_constrainedWidth="true"
             android:background="@drawable/background_rounded_outlined"
-            app:layout_constraintBottom_toTopOf="@id/date"
+            app:layout_constraintBottom_toTopOf="@id/date_start"
             app:layout_constraintLeft_toLeftOf="@id/left_guideline"
             app:layout_constraintRight_toRightOf="@id/right_guideline"
             app:layout_constraintTop_toTopOf="parent"
@@ -51,7 +51,7 @@
                 android:maxLines="1"
                 android:scrollHorizontally="false"
                 android:textSize="20sp"
-                tools:text="Description" />
+                tools:text="Task" />
         </LinearLayout>
 
         <TextView
@@ -71,15 +71,15 @@
             tools:text="Active"/>
 
         <LinearLayout
-            android:id="@+id/date"
+            android:id="@+id/date_start"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="30dp"
             android:background="@drawable/background_rounded_outlined"
-            app:layout_constraintBottom_toTopOf="@id/time"
-            app:layout_constraintLeft_toLeftOf="@id/name"
-            app:layout_constraintRight_toRightOf="@id/name"
+            app:layout_constraintBottom_toTopOf="@id/date_end"
+            app:layout_constraintStart_toStartOf="@id/name"
+            app:layout_constraintEnd_toEndOf="@id/name"
             app:layout_constraintTop_toBottomOf="@id/name">
 
             <TextView
@@ -92,11 +92,54 @@
                 android:lines="1"
                 android:maxLines="1"
                 android:scrollHorizontally="false"
-                android:text="@string/date_filed_label"
+                android:text="@string/date_start_label"
                 android:textSize="14sp"/>
 
             <TextView
-                android:id="@+id/date_text"
+                android:id="@+id/date_start_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:lines="1"
+                android:maxLines="1"
+                android:scrollHorizontally="false"
+                android:textSize="20sp"
+                tools:text="02.06.2008"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/date_end"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:visibility="gone"
+            android:background="@drawable/background_rounded_outlined"
+            app:layout_constraintBottom_toTopOf="@id/time"
+            app:layout_constraintStart_toStartOf="@id/date_start"
+            app:layout_constraintEnd_toEndOf="@id/date_start"
+            app:layout_constraintTop_toBottomOf="@id/date_start"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:lines="1"
+                android:maxLines="1"
+                android:scrollHorizontally="false"
+                android:text="@string/date_end_label"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/date_end_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
@@ -119,10 +162,9 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/background_rounded_outlined"
             app:layout_constraintBottom_toTopOf="@id/description"
-            app:layout_constraintLeft_toLeftOf="@id/date"
-            app:layout_constraintRight_toRightOf="@id/date"
-            app:layout_constraintTop_toBottomOf="@id/date"
-            app:layout_constraintVertical_chainStyle="packed">
+            app:layout_constraintStart_toStartOf="@id/date_start"
+            app:layout_constraintEnd_toEndOf="@id/date_start"
+            app:layout_constraintTop_toBottomOf="@id/date_end">
 
             <TextView
                 android:layout_width="match_parent"
@@ -161,10 +203,9 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/background_rounded_outlined"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/time"
-            app:layout_constraintRight_toRightOf="@id/time"
-            app:layout_constraintTop_toBottomOf="@id/time"
-            app:layout_constraintVertical_chainStyle="packed">
+            app:layout_constraintStart_toStartOf="@id/time"
+            app:layout_constraintEnd_toEndOf="@id/time"
+            app:layout_constraintTop_toBottomOf="@id/time">
 
             <TextView
                 android:layout_width="match_parent"

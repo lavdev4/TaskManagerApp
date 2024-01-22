@@ -14,7 +14,7 @@ class GetCachedTasksUseCase @Inject constructor(
         return tasksCacheRepository.getFlowByDate(dateTime)
     }
 
-    suspend fun getTask(taskId: Int): TaskEntity {
+    suspend fun getTask(taskId: String): TaskEntity {
         return tasksCacheRepository.getSingle(taskId)
     }
 }

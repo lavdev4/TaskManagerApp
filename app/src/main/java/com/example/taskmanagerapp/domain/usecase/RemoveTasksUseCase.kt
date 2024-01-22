@@ -7,7 +7,7 @@ class RemoveTasksUseCase @Inject constructor(
     private val taskExternalRepository: TasksExternalRepository
 ) {
 
-    suspend fun removeTask(taskId: Int) {
+    suspend fun removeTask(taskId: String) {
         val removed = taskExternalRepository.removeTask(taskId)
         if (!removed) throw RuntimeException("Ambiguous task with id: $taskId")
     }

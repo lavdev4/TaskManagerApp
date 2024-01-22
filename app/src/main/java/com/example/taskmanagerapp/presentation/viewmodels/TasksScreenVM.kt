@@ -21,19 +21,20 @@ class TasksScreenVM @Inject constructor(
     private val getCachedTasksUseCase: GetCachedTasksUseCase,
     private val updateTasksUseCase: UpdateTasksUseCase,
     private val removeDataUseCase: RemoveTasksUseCase,
+
+    externalTasksSource: ExternalTasksSource,
+    addTasksUseCase: AddTasksUseCase
 ) : ViewModel() {
     var currentDate: LocalDate? = null
     private lateinit var tasksFlow: StateFlow<List<TaskEntity>?>
 
-    init {
-        viewModelScope.launch { updateTasksUseCase() }
-    }
+    init { viewModelScope.launch { updateTasksUseCase() } }
 
-    fun deactivateTask(taskId: Int) {
+    fun deactivateTask(taskId: String) {
         viewModelScope.launch { updateTasksUseCase.deactivateTask(taskId) }
     }
 
-    fun removeTask(taskId: Int) {
+    fun removeTask(taskId: String) {
         viewModelScope.launch { removeDataUseCase.removeTask(taskId) }
     }
 

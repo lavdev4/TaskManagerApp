@@ -45,11 +45,17 @@ class AdaptiveSpacingItemDecorator(
             convertDpToPixel(outerItemsOffsetDp, parent.context)
         } else offset
 
-        outRect.top = topOffset.toInt()
-        outRect.bottom = bottomOffset.toInt()
+        when (orientation) {
+            RecyclerView.VERTICAL -> {
+                outRect.top = topOffset.toInt()
+                outRect.bottom = bottomOffset.toInt()
+            }
+            RecyclerView.HORIZONTAL -> {
+                outRect.left = topOffset.toInt()
+                outRect.right = bottomOffset.toInt()
+            }
+        }
     }
-
-
 
     private fun convertDpToPixel(dp: Float, context: Context): Float {
         val displayPixelDensity = context.resources.displayMetrics.densityDpi

@@ -17,7 +17,7 @@ class UpdateTasksUseCase @Inject constructor(
         }
     }
 
-    suspend fun deactivateTask(taskId: Int) {
+    suspend fun deactivateTask(taskId: String) {
         tasksExternalRepository.getSingle(taskId)?.let { task ->
             updateTask(task.copy(actual = false))
         } ?: throw RuntimeException("Ambiguous task with id: $taskId")

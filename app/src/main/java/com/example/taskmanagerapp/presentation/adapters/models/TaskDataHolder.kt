@@ -1,29 +1,29 @@
 package com.example.taskmanagerapp.presentation.adapters.models
 
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.taskmanagerapp.presentation.adapters.factories.TimeViewHolderFactory
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.util.Locale
 
-data class DisabledTaskData(
+data class TaskDataHolder(
     override val time: LocalTime,
-    override val id: Int,
+    override val id: String,
     val name: String,
+    val isActivated: Boolean = true,
     private val timeFormatter: DateTimeFormatter
 ) : TimeHolder(timeFormatter) {
+    override val viewType = TASK_DATA_VIEW
+    override val sortPriority = false
 
-    override val viewType: Int = DISABLED_TASK_DATA_VIEW
-
-    override fun bindViewHolder(viewHolder: RecyclerView.ViewHolder) {
-        val binding = (viewHolder as TimeViewHolderFactory.DisabledTDViewHolder).binding
+    override fun bindViewHolder(viewHolder: ViewHolder) {
+        val binding = (viewHolder as TimeViewHolderFactory.TaskDataViewHolder).binding
         binding.time.text = formatTime(time)
         binding.name.text = name
     }
 
     override fun compareItems(item: TimeHolder): Boolean {
         if (item.viewType != this.viewType) return false
-        return (item as DisabledTaskData).id == this.id
+        return (item as TaskDataHolder).id == this.id
     }
 
     override fun compareContents(item: TimeHolder): Boolean {

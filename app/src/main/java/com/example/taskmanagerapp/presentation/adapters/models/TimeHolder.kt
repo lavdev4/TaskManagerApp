@@ -8,9 +8,12 @@ import java.time.format.FormatStyle
 import java.util.Locale
 
 abstract class TimeHolder(private val timeFormatter: DateTimeFormatter) {
-    abstract val id: Int?
+    abstract val id: String?
     abstract val time: LocalTime
     abstract val viewType: Int
+    /** [sortPriority] is necessary to determine which of two identical list elements
+     * will have a higher position in the list. */
+    abstract val sortPriority: Boolean
 
     abstract fun bindViewHolder(viewHolder: ViewHolder)
 

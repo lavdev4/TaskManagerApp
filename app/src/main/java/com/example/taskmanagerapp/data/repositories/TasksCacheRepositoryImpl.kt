@@ -34,7 +34,7 @@ class TasksCacheRepositoryImpl @Inject constructor(
             .map { taskList -> taskList.map(taskCacheMapper::taskDbModelToEntity) }
     }
 
-    override suspend fun getSingle(taskId: Int): TaskEntity {
+    override suspend fun getSingle(taskId: String): TaskEntity {
         return withContext(databaseDispatcher) {
             val task = tasksDao.getDistinct(taskId)
             taskCacheMapper.taskDbModelToEntity(task)

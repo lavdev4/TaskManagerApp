@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_task_detail">
         <argument
             android:name="task_id"
-            app:argType="integer" />
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/addTaskScreen"

@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "tasks")
 data class TaskDbModel(
     @PrimaryKey
-    val id: Int,
+    val id: String,
     @ColumnInfo(name = "date_start")
     val dateStart: Long,
     @ColumnInfo(name = "date_finish")

@@ -7,6 +7,6 @@ import java.time.LocalDate
 interface TasksCacheRepository {
     suspend fun update(tasks: List<TaskEntity>)
     fun getFlowByDate(dateTime: LocalDate): Flow<List<TaskEntity>>
-    suspend fun getSingle(taskId: Int): TaskEntity
+    suspend fun getSingle(taskId: String): TaskEntity
     suspend fun clear()
 }

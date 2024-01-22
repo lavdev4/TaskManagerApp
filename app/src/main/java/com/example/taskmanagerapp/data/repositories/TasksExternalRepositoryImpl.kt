@@ -32,7 +32,7 @@ class TasksExternalRepositoryImpl @Inject constructor(
         add(task)
     }
 
-    override suspend fun removeTask(taskId: Int): Boolean {
+    override suspend fun removeTask(taskId: String): Boolean {
         return withContext(externalDispatcher) {
             val tasksList = externalTasksSource.getList().toMutableList()
             val removed = tasksList.removeIf { it.id == taskId }
@@ -46,7 +46,7 @@ class TasksExternalRepositoryImpl @Inject constructor(
             .map { taskList -> taskList.map(mapper::taskExternalModelToEntity) }
     }
 
-    override suspend fun getSingle(taskId: Int): TaskEntity? {
+    override suspend fun getSingle(taskId: String): TaskEntity? {
         return withContext(externalDispatcher) {
             val result = externalTasksSource.getList().find { it.id == taskId }
             return@withContext result?.let { mapper.taskExternalModelToEntity(it) }

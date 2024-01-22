@@ -7,5 +7,18 @@
     <string name="task_status_active">Активно</string>
     <string name="task_status_uncative">Не активно</string>
     <string name="time_start_end_pattern">%1$s - %2$s</string>
-    <string name="date_filed_label">Дата</string>
+    <string name="date_start_label">Дата начала</string>
+    <string name="date_end_label">Дата окончания</string>
+    <string name="date_picker_label">Дата начала и окончания</string>
+    <string name="date_picker_positive_button">Подтвердить</string>
+    <string name="time_start_label">Время начала</string>
+    <string name="time_end_label">Время окончания</string>
+    <string name="time_picker_label_start">Время начала</string>
+    <string name="time_picker_label_end">Время конца</string>
+    <string name="add_button_text">Добавить</string>
+    <string name="no_name_toast">Не указано имя.</string>
+    <string name="date_inverted_toast">Дата окончания раньше даты начала.</string>
+    <string name="no_start_date_time_toast">Не указана дата или время начала.</string>
+    <string name="no_description_toast">Не указано описание.</string>
+    <string name="no_status_toast">Не установлен статус.</string>
 </resources>
